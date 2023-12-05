@@ -4,10 +4,10 @@
     "keywords": ["file", "filelist"],
     "type": "library",
     "require": {
-        "php": ">=7.2"
+        "php": ">=8.0"
     },
     "require-dev": {
-        "php": ">=7.2"
+        "php": ">=8.0"
     },
     "license": "MIT",
     "autoload": {

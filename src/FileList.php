@@ -80,7 +80,7 @@ class FileList
         return $this;
     }
 
-    public function setAllowedFileType($value)
+    public function setAllowedFileType(array|string|int $value)
     {
         if (!is_array($value) && $value !== self::NO_FILTER) {
             $value = explode(',', $value);
@@ -144,7 +144,7 @@ class FileList
         return isset($this->item_array[$type]) ? $this->item_array[$type] : null;
     }
 
-    public function changeItemID(array $array, $old_key, $new_key, $type = self::ITEM_DIR)
+    public function changeItemID(array $array, int|string $old_key, int|string $new_key, FileList|string $type = self::ITEM_DIR)
     {
         if (!array_key_exists($old_key, $array)) {
             return $array;
@@ -256,14 +256,14 @@ class FileList
         }
     }
 
-    private function checkFileExtension($file)
+    private function checkFileExtension(mixed $file)
     {
         if ($this->allowed_file_type === self::NO_FILTER) return true;
 
         return in_array(strtolower($file->getExtension()), $this->allowed_file_type);
     }
 
-    private function createItemArray($item_info, $item_type = null)
+    private function createItemArray(mixed $item_info, FileList|string $item_type = null)
     {
         //Set append key for array
         $append_id = $this->append_id;
@@ -285,7 +285,7 @@ class FileList
         }
     }
 
-    private function getItemParamArray(string $path, $item_type = null)
+    private function getItemParamArray(string $path, FileList|string $item_type = null)
     {
         $get_item = false;
         $search_item = $this->item_array;
@@ -366,7 +366,7 @@ class FileList
         return;
     }
 
-    private function recursiveDir($iterator)
+    private function recursiveDir(mixed $iterator)
     {
         $dir_array = array('parent_id' => null);
         $dir_array['last_modified'] = $dir_array['post_date'] = time();
@@ -422,7 +422,7 @@ class FileList
         return isset($this->item_array[self::ITEM_FILE]) ? $this->item_array[self::ITEM_FILE] : null;
     }
 
-    private function getParentTree($item_id, array $item_array)
+    private function getParentTree(mixed $item_id, array $item_array)
     {
         if ($item_array[$item_id]['parent_id'] !== null) {
             $this->getParentTree($item_array[$item_id]['parent_id'], $item_array);
