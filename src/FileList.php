@@ -1,6 +1,7 @@
 <?php
 namespace carry0987\FileList;
 
+use carry0987\FileList\Exceptions\FileListException;
 use \FilesystemIterator as FI;
 use \RecursiveIteratorIterator as RII;
 use \RecursiveDirectoryIterator as RDI;
@@ -120,7 +121,7 @@ class FileList
     public function setPath(string $path)
     {
         if (!is_readable($path)) {
-            self::throwError('Cannot read directory ['.$path.']');
+            throw new FileListException('Cannot read directory ['.$path.']');
         }
         $this->set_path = $path;
         $this->iterator_path = $this->setRDI($path);
@@ -440,11 +441,5 @@ class FileList
             $this->item_array[$item_name][$key]['parent_tree'] = implode(',', $parent_tree_array);
             $this->parent_tree = [];
         }
-    }
-
-    //Throw error
-    private static function throwError(string $message)
-    {
-        throw new \Exception($message);
     }
 }
